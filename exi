@@ -1,0 +1,124 @@
+= ..ddeessttrrooyy
+
+(from gem activerecord-6.1.0)
+=== IImmpplleemmeennttaattiioonn  ffrroomm  CCoolllleeccttiioonnPPrrooxxyy
+------------------------------------------------------------------------
+  destroy(*records)
+
+------------------------------------------------------------------------
+
+Destroys the records supplied and removes them from the collection. This
+method will _a_l_w_a_y_s remove record from the database ignoring
+the :dependent option. Returns an array with the removed records.
+
+  class Person < ActiveRecord::Base
+    has_many :pets
+  end
+
+  person.pets.size # => 3
+  person.pets
+  # => [
+  #       #<Pet id: 1, name: "Fancy-Fancy", person_id: 1>,
+  #       #<Pet id: 2, name: "Spook", person_id: 1>,
+  #       #<Pet id: 3, name: "Choo-Choo", person_id: 1>
+  #    ]
+
+  person.pets.destroy(Pet.find(1))
+  # => [#<Pet id: 1, name: "Fancy-Fancy", person_id: 1>]
+
+  person.pets.size # => 2
+  person.pets
+  # => [
+  #       #<Pet id: 2, name: "Spook", person_id: 1>,
+  #       #<Pet id: 3, name: "Choo-Choo", person_id: 1>
+  #    ]
+
+  person.pets.destroy(Pet.find(2), Pet.find(3))
+  # => [
+  #       #<Pet id: 2, name: "Spook", person_id: 1>,
+  #       #<Pet id: 3, name: "Choo-Choo", person_id: 1>
+  #    ]
+
+  person.pets.size  # => 0
+  person.pets       # => []
+
+  Pet.find(1, 2, 3) # => ActiveRecord::RecordNotFound: Couldn't find all Pets with 'id': (1, 2, 3)
+
+You can pass Integer or String values, it finds the records responding
+to the id and then deletes them from the database.
+
+  person.pets.size # => 3
+  person.pets
+  # => [
+  #       #<Pet id: 4, name: "Benny", person_id: 1>,
+  #       #<Pet id: 5, name: "Brain", person_id: 1>,
+  #       #<Pet id: 6, name: "Boss",  person_id: 1>
+  #    ]
+
+  person.pets.destroy("4")
+  # => #<Pet id: 4, name: "Benny", person_id: 1>
+
+  person.pets.size # => 2
+  person.pets
+  # => [
+  #       #<Pet id: 5, name: "Brain", person_id: 1>,
+  #       #<Pet id: 6, name: "Boss",  person_id: 1>
+  #    ]
+
+  person.pets.destroy(5, 6)
+  # => [
+  #       #<Pet id: 5, name: "Brain", person_id: 1>,
+  #       #<Pet id: 6, name: "Boss",  person_id: 1>
+  #    ]
+
+  person.pets.size  # => 0
+  person.pets       # => []
+
+  Pet.find(4, 5, 6) # => ActiveRecord::RecordNotFound: Couldn't find all Pets with 'id': (4, 5, 6)
+
+
+(from gem activerecord-6.1.0)
+=== IImmpplleemmeennttaattiioonn  ffrroomm  PPeerrssiisstteennccee
+------------------------------------------------------------------------
+  destroy()
+
+------------------------------------------------------------------------
+
+Deletes the record in the database and freezes this instance to reflect
+that no changes should be made (since they can't be persisted).
+
+There's a series of callbacks associated with #destroy. If the
+before_destroy callback throws :abort the action is cancelled and
+#destroy returns false. See ActiveRecord::Callbacks for further details.
+
+
+(from gem activerecord-6.1.0)
+=== IImmpplleemmeennttaattiioonn  ffrroomm  CCllaassssMMeetthhooddss
+------------------------------------------------------------------------
+  destroy(id)
+
+------------------------------------------------------------------------
+
+Destroy an object (or multiple objects) that has the given id. The
+object is instantiated first, therefore all callbacks and filters are
+fired off before the object is deleted. This method is less efficient
+than #delete but allows cleanup methods and other actions to be run.
+
+This essentially finds the object (or multiple objects) with the given
+id, creates a new object from the attributes, and then calls destroy on
+it.
+
+==== PPaarraammeetteerrss
+
+* id - This should be the id or an array of ids to be destroyed.
+
+==== EExxaammpplleess
+
+  # Destroy a single object
+  Todo.destroy(1)
+
+  # Destroy multiple objects
+  todos = [1,2,3]
+  Todo.destroy(todos)
+
+
