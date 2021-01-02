@@ -1,24 +1,48 @@
-# README
+![](https://img.shields.io/badge/Microverse-blueviolet)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# Building With Active Records
 
-Things you may want to cover:
+Application similar to reddit where a user can create a post and add coments to it.
+Made as a practice for Active Record in rails. 
 
-* Ruby version
+## Built With
 
-* System dependencies
+- Ruby
+- Rails
+- SQLite3
 
-* Configuration
+### Install
 
-* Database creation
+Ruby and install Rails on your local machine
 
-* Database initialization
+### Setup
 
-* How to run the test suite
+Open your terminal and go to the directory where you want to clone the repo.
 
-* Services (job queues, cache servers, search engines, etc.)
+Clone the repository to your local machine. Type $ git clone `https://github.com/AbdelrhmanAmin/Micro-reddit.git`
 
-* Deployment instructions
+Go to the Micro-reddit directory. Type $ cd micro-reddit
 
-* ...
+Install the necessary gems to run the project. Type $ bundle install
+
+Also please run this command `rails db:migrate` to run all the migration for the database and have all tables updated and read to use
+
+Now your environment is ready to run the project. Type rails c
+
+## Author
+
+😎 **Abdo Amin**
+
+- GitHub: [@Abdelrhman-Amin](https://github.com/AbdelrhmanAmin)
+- Twitter: [@Abdo Amin](https://twitter.com/AbdoAmi60489112)
+- LinkedIn: [@Abdo Amin](https://www.linkedin.com/in/abdo-amin-ab786a1b0/)
+
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome!
+
+Feel free to check the [issues page](https://github.com/AbdelrhmanAmin/Micro-reddit/issues).
+
+## 📝 License
+
+This project is [MIT](./LICENSE) licensed.
